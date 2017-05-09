@@ -16,12 +16,10 @@ eval "$(pyenv init -)"
 ZSH_THEME="avit"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man colorize github jira virtualenv pip python brew osx zsh-syntax-highlighting)
+plugins=(git colorize github virtualenv pip python brew zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 export VIRTUAL_ENV_DISABLE_PROMPT=
-
-
 
 # Username
 export USER_NAME="Berend Kapelle"

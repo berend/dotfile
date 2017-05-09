@@ -1,13 +1,13 @@
 # dotfile
 
-here are my dot files and configs I wnat to carry over to new sytems.
+here are my dot files and configs I want to carry over to new sytems. This is for mac osX
 
 
 Commands
 
 To setup things up, 3 files are needed.
 
-* system_Setup.sh - 
+* system_Setup.sh - putting all install script into one
 * .zshrc
 * env.sh
 
