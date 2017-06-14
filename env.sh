@@ -37,3 +37,5 @@ alias ll="ls -lha"
 # Use sublimetext for editing config files
 alias ezsh="subl ~/.zshrc"
 alias eenv="subl ~/workspace/dotfile/env.sh"
+
+function p4diff() {/Applications/p4merge.app/Contents/Resources/launchp4merge $}

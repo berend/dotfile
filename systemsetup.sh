@@ -33,3 +33,10 @@ pyenv install 2.7.13
 
 # zsh setup
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+
+
+# change some apple internals
+
+# ask for password after lock immediately
+defaults write com.apple.screensaver 'askForPassword' -int 1
+defaults write com.apple.screensaver 'askForPasswordDelay' -int 0
