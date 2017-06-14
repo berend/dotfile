@@ -22,6 +22,7 @@ brew cask install iterm2
 brew cask install macdown
 brew cask install google-chrome
 brew cask install p4merge
+brew cask install gpgtools
 
 # remove unused stuff after all those installs
 brew cleanup
