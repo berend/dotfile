@@ -35,8 +35,27 @@ pyenv install 2.7.13
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
 
 
-# change some apple internals
+# change some osx defaults
 
 # ask for password after lock immediately
 defaults write com.apple.screensaver 'askForPassword' -int 1
 defaults write com.apple.screensaver 'askForPasswordDelay' -int 0
+
+# finder stuff
+defaults write com.apple.Finder AppleShowAllFiles YES
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+
+# fast key repeat
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+# keyboard shortcut cmd + < for Move focues to next window within same application
+defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 27 "{enabled = 1; value = { parameters = (60, 50, 1048576); type = 'standard'; }; }"
+
+# natual scrolling off
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# git configs
+git config --global core.editor "subl -n -w"
+git config --global --add merge.ff false
