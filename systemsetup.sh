@@ -7,10 +7,11 @@ brew upgrade
 brew install git
 brew install coreutils
 brew install jq
-brew install pyenv
-brew install pyenv-virtualenv
 brew install zsh
 brew install node
+brew install python@3
+brew install python@2
+brew install hub
 
 # cask stuff
 brew cask install pycharm
@@ -27,9 +28,9 @@ brew cask install gpgtools
 # remove unused stuff after all those installs
 brew cleanup
 
-# install common python version
-pyenv install 3.6.1
-pyenv install 2.7.13
+# setup virtualenvwrapper
+pip install virtualenvwrapper
+
 
 # zsh setup
 curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
@@ -58,4 +59,14 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # git configs
 git config --global core.editor "subl -n -w"
-git config --global --add merge.ff false
+git config --global merge.ff false
+git config --global user.name "Berend Kapelle"
+git config --global push.followTags true
+git config --global pull.rebase true
+git config --global commit.gpgsign true
+git config --global core.excludesfile '~/.gitignore'
+
+
+mkdir -p "~/workspace/own"
+cp env.sh ~/
+cp .zshrc ~/
