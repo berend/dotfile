@@ -16,7 +16,7 @@ brew install hub
 # cask stuff
 brew cask install pycharm
 brew cask install spotify
-brew cask install spectales
+brew cask install spectacle
 brew cask install sublime-text
 brew cask install telegram-desktop
 brew cask install iterm2
