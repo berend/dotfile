@@ -30,12 +30,11 @@ Here is some stuff I want on my computer that are not yet automated in the setup
 
 ### sublime packages
 
-* Pretty JSON (auto indent JSON, use jq on JSON)
-* SublimeJedi (for python in sublime)
+* Pretty JSON 
+* SublimeJedi 
 * SublimeLinter
 * SublimeLinter-flake8
-
-
+* HTML-CSS-JS Prettify
 
 ## To do:
 * gpg tools & setup
