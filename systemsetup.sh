@@ -22,7 +22,7 @@ brew cask install telegram-desktop
 brew cask install iterm2
 brew cask install macdown
 brew cask install google-chrome
-brew cask install p4merge
+brew cask install diffmerge
 brew cask install gpgtools
 
 # remove unused stuff after all those installs
@@ -65,7 +65,14 @@ git config --global push.followTags true
 git config --global pull.rebase true
 git config --global commit.gpgsign true
 git config --global core.excludesfile '~/.gitignore'
+git config --global push.default current
 
+git config --global diff.tool diffmerge
+git config --global difftool.diffmerge.cmd "/usr/local/bin/diffmerge \"\$LOCAL\" \"\$REMOTE\""
+git config --global merge.tool diffmerge
+git config --global mergetool.diffmerge.trustExitCode true
+git config --global mergetool.diffmerge.cmd "/usr/local/bin/diffmerge --merge --result=\"\$MERGED\" \"\$LOCAL\" \"\$BASE\" \"\$REMOTE\""
+git config --global mergetool.keepBackup false
 
 mkdir -p "~/workspace/own"
 cp env.sh ~/

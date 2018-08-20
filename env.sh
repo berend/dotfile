@@ -56,3 +56,15 @@ notebook () {
             jupyter notebook --notebook-dir=$1
     fi
 }
+
+mkv3 () {
+    mkvirtualenv -p $(which python3) "$@"
+}
+
+mkv2 () {
+    mkvirtualenv -p $(which python2) "$@"
+}
+
+clearpyc () {
+    find . -name \*.pyc -delete
+}
