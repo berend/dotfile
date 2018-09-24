@@ -30,7 +30,10 @@ alias ll="ls -lha"
 
 # Use sublimetext for editing config files
 alias ezsh="subl ~/.zshrc"
-alias eenv="subl ~/workspace/dotfile/env.sh"
+alias eenv="subl ~/env.sh"
+
+# get stuff up
+alias dcbu="docker-compose pull && docker-compose build && docker-compose up"
 
 function p4diff() {/Applications/p4merge.app/Contents/Resources/launchp4merge $}
 
@@ -44,6 +47,29 @@ fingerprint () {
     echo | openssl s_client -connect $1:443 |& openssl x509 -fingerprint -sha256 -noout
     echo | openssl s_client -connect $1:443 |& openssl x509 -fingerprint -sha1 -noout
 }
+
+
+# delete locally merged branches
+dlmb () {
+    git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
+}
+
+# delete remote merged branches (into master) (gxargs because of mac)
+drmb () {
+    # delete branches that are local and on origin
+    git branch -r --merged origin/master \
+    | awk -F/ '/^\s*origin/ {if (!match($0, /origin\/master/)) {sub("^\\s*origin/", ""); print}}' \
+    | gxargs -rpn1 git push origin --delete
+
+    # delete branches, that are only on origin and not locally:
+    for branch in $(git for-each-ref --format='%(refname:lstrip=3)' refs/remotes/origin | grep -v HEAD | grep -v master); do
+    if ! git show-ref --quiet refs/heads/${branch}; then
+        echo "delete remote branch '${branch}'"
+        git push origin --delete ${branch}
+    fi
+done
+}
+
 
 notebook () {
     workon notebook
