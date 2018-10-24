@@ -18,9 +18,10 @@ export VIRTUAL_ENV_DISABLE_PROMPT=
 # Username
 export USER_NAME="Berend Kapelle"
 
-# FileSearch
+# Search
 function f() { find . -iname "*$1*" ${@:2} }
 function r() { grep "$1" ${@:2} -R . }
+function hg() { history | grep $@ }
 
 #mkdir and cd
 function mkcd() { mkdir -p "$@" && cd "$_"; }
@@ -68,6 +69,35 @@ drmb () {
         git push origin --delete ${branch}
     fi
 done
+}
+
+
+pwdgen () {
+    if [ -z "$1" ]
+    then
+        gpg --gen-random --armor 1 20
+    else
+        gpg --gen-random --armor 1 $1
+    fi
+}
+
+
+serve () {
+    if [ -z "$1" ]
+    then
+        port=8000
+    else
+        port=$1
+    fi    
+    python3 -m http.server ${port}&> /dev/null &
+    pid=$!
+    open http://127.0.0.1:${port}/
+    vared -p "Serving folder on port ${port} in process ${pid} (enter to stop)" -c tmp
+    kill "${pid}"
+}
+
+portlisten () {
+    lsof -n -i4TCP:$1 | grep LISTEN
 }
 
 
