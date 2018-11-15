@@ -58,7 +58,7 @@ defaults write com.apple.symbolichotkeys.plist AppleSymbolicHotKeys -dict-add 27
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # git configs
-git config --global core.editor "subl -n -w"
+git config --global core.editor "code --wait --new-window"
 git config --global merge.ff false
 git config --global user.name "Berend Kapelle"
 git config --global push.followTags true
@@ -68,7 +68,7 @@ git config --global core.excludesfile '~/.gitignore'
 git config --global push.default current
 
 git config --global diff.tool diffmerge
-git config --global difftool.diffmerge.cmd "/usr/local/bin/diffmerge \"\$LOCAL\" \"\$REMOTE\""
+git config --global difftool.diffmerge.cmd "code --wait --diff $LOCAL $REMOTE"
 git config --global merge.tool diffmerge
 git config --global mergetool.diffmerge.trustExitCode true
 git config --global mergetool.diffmerge.cmd "/usr/local/bin/diffmerge --merge --result=\"\$MERGED\" \"\$LOCAL\" \"\$BASE\" \"\$REMOTE\""
