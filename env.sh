@@ -29,14 +29,13 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 # Aliases
 alias ll="ls -lha"
 
-# Use sublimetext for editing config files
-alias ezsh="subl ~/.zshrc"
-alias eenv="subl ~/env.sh"
+# Use vs code for editing config files
+alias ezsh="code ~/.zshrc"
+alias eenv="code ~/env.sh"
+alias esec="code ~/secrets.sh"
 
 # get stuff up
 alias dcbu="docker-compose pull && docker-compose build && docker-compose up"
-
-function p4diff() {/Applications/p4merge.app/Contents/Resources/launchp4merge $}
 
 tunnel-anything () {
     ssh -M -S /tmp/tunnel-anything-1337 -fnNT -L "1337:localhost:$1" "$2"
@@ -48,7 +47,6 @@ fingerprint () {
     echo | openssl s_client -connect $1:443 |& openssl x509 -fingerprint -sha256 -noout
     echo | openssl s_client -connect $1:443 |& openssl x509 -fingerprint -sha1 -noout
 }
-
 
 # delete locally merged branches
 dlmb () {
@@ -71,7 +69,6 @@ drmb () {
 done
 }
 
-
 pwdgen () {
     if [ -z "$1" ]
     then
@@ -80,7 +77,6 @@ pwdgen () {
         gpg --gen-random --armor 1 $1
     fi
 }
-
 
 serve () {
     if [ -z "$1" ]
@@ -99,7 +95,6 @@ serve () {
 portlisten () {
     lsof -n -i4TCP:$1 | grep LISTEN
 }
-
 
 notebook () {
     workon notebook

@@ -12,17 +12,18 @@ brew install node
 brew install python@3
 brew install python@2
 brew install hub
+brew install the_silver_searcher
 
 # cask stuff
 brew cask install pycharm
 brew cask install spotify
 brew cask install spectacle
 brew cask install sublime-text
+brew cask install visual-studio-code
 brew cask install telegram-desktop
 brew cask install iterm2
 brew cask install macdown
 brew cask install google-chrome
-brew cask install diffmerge
 brew cask install gpgtools
 
 # remove unused stuff after all those installs
@@ -75,5 +76,6 @@ git config --global mergetool.diffmerge.cmd "/usr/local/bin/diffmerge --merge --
 git config --global mergetool.keepBackup false
 
 mkdir -p "~/workspace/own"
-cp env.sh ~/
-cp .zshrc ~/
+
+ln -s  $(pwd)/env.sh ~/env.sh
+ln -s  $(pwd)/.zshrc ~/.zshrc
