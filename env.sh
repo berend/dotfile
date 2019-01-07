@@ -30,9 +30,14 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 alias ll="ls -lha"
 
 # Use vs code for editing config files
-alias ezsh="code ~/.zshrc"
-alias eenv="code ~/env.sh"
-alias esec="code ~/secrets.sh"
+alias ezsh="code -n ~/.zshrc"
+alias eenv="code -n ~/env.sh"
+alias esec="code -n ~/secrets.sh"
+alias cn="code -n ."
+
+# git aliases
+alias gs="git status"
+
 
 # get stuff up
 alias dcbu="docker-compose pull && docker-compose build && docker-compose up"
@@ -119,3 +124,4 @@ mkv2 () {
 clearpyc () {
     find . -name \*.pyc -delete
 }
+test -f ~/secrets.sh && source ~/secrets.sh
