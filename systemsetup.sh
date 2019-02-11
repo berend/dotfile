@@ -67,6 +67,7 @@ git config --global pull.rebase true
 git config --global commit.gpgsign true
 git config --global core.excludesfile '~/.gitignore'
 git config --global push.default current
+git config --global fetch.prune true
 
 git config --global diff.tool diffmerge
 git config --global difftool.diffmerge.cmd "code --wait --diff $LOCAL $REMOTE"
