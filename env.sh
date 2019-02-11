@@ -2,6 +2,9 @@
 
 export EDITOR='subl -w'
 
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+
 # Virtual Environment
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/workspace
@@ -34,6 +37,15 @@ alias ezsh="code -n ~/.zshrc"
 alias eenv="code -n ~/env.sh"
 alias esec="code -n ~/secrets.sh"
 alias cn="code -n ."
+
+
+
+#go development
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+
 
 # git aliases
 alias gs="git status"
