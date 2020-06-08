@@ -1,9 +1,17 @@
 #!/bin/zsh
 
-export EDITOR='subl -w'
+export LANG=en_US.UTF-8
+export EDITOR='code -n -w'
+
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
 bindkey "^[^[[C" forward-word
 bindkey "^[^[[D" backward-word
+
+#use python3 without touching systems python
+alias python=/usr/local/bin/python3
+alias pip="/usr/local/bin/python3 -m pip"
+
 
 # Virtual Environment
 export WORKON_HOME=$HOME/.virtualenvs
@@ -13,17 +21,17 @@ source /usr/local/bin/virtualenvwrapper.sh
 ZSH_THEME="avit"
 
 # shell plugins
-plugins=(git colorize github virtualenv pip python brew zsh-syntax-highlighting)
+plugins=(git colorize github brew)
 
 source $ZSH/oh-my-zsh.sh
-export VIRTUAL_ENV_DISABLE_PROMPT=
+source ~/bin/z/z.sh
 
 # Username
 export USER_NAME="Berend Kapelle"
 
 # Search
 function f() { find . -iname "*$1*" ${@:2} }
-function r() { grep "$1" ${@:2} -R . }
+function r() { grep "$1" ${@:2} -RI . }
 function hg() { history | grep $@ }
 
 #mkdir and cd
@@ -31,13 +39,28 @@ function mkcd() { mkdir -p "$@" && cd "$_"; }
 
 # Aliases
 alias ll="ls -lha"
+alias cat="bat"
 
 # Use vs code for editing config files
 alias ezsh="code -n ~/.zshrc"
 alias eenv="code -n ~/env.sh"
 alias esec="code -n ~/secrets.sh"
 alias cn="code -n ."
+alias dc="docker-compose"
+alias pc="pip-compile"
+alias b120="black --line-length 120 --target-version py37"
+alias epoch="date +%s"
+alias docker-clean="docker image prune --all --filter \"until=720h\""
 
+alias localmysql="docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -v ~/mysqldatadir:/var/lib/mysql mysql"
+
+# for dev workflow, assumes, you have a 'set_env_vars.sh' in you working dir
+alias vars="source ./set_env_vars.sh"
+
+# copy & paste from cmd line abreviations
+alias copy="pbcopy"
+# this overwrites the OS "paste" - Ok for me, since I dont use it. But be aware!
+alias paste="pbpaste"
 
 
 #go development
@@ -45,11 +68,8 @@ export GOPATH="${HOME}/.go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
-
-
 # git aliases
 alias gs="git status"
-
 
 # get stuff up
 alias dcbu="docker-compose pull && docker-compose build && docker-compose up"
@@ -101,12 +121,18 @@ serve () {
         port=8000
     else
         port=$1
-    fi    
+    fi
     python3 -m http.server ${port}&> /dev/null &
     pid=$!
     open http://127.0.0.1:${port}/
     vared -p "Serving folder on port ${port} in process ${pid} (enter to stop)" -c tmp
     kill "${pid}"
+}
+
+migration () {
+    migration_name="$(epoch)_$1.sql"
+    touch ${migration_name}
+    echo "created file ${migration_name}"
 }
 
 portlisten () {
@@ -124,7 +150,6 @@ notebook () {
             jupyter notebook --notebook-dir=$1
     fi
 }
-
 mkv3 () {
     mkvirtualenv -p $(which python3) "$@"
 }
@@ -136,4 +161,25 @@ mkv2 () {
 clearpyc () {
     find . -name \*.pyc -delete
 }
+
+devenv () {
+    if [ -f set_env_vars.sh ]
+        then
+            echo "sourcing set_env_vars.sh"
+            source ./set_env_vars.sh
+        else
+            echo "set_env_vars.sh not found."
+    fi
+    echo "switching to ${PWD##*/} python environment"
+    workon ${PWD##*/}
+}
+
+vstring () {
+    echo $(git describe --abbrev=0).$(git rev-parse --short HEAD)
+}
+
+gogofmt () {
+    go fmt $(go list ./...)
+}
+
 test -f ~/secrets.sh && source ~/secrets.sh

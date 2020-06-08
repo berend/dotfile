@@ -9,8 +9,7 @@ brew install coreutils
 brew install jq
 brew install zsh
 brew install node
-brew install python@3
-brew install python@2
+brew install python
 brew install hub
 brew install the_silver_searcher
 
