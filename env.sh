@@ -16,6 +16,7 @@ alias pip="/usr/local/bin/python3 -m pip"
 # Virtual Environment
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/workspace
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 
 ZSH_THEME="avit"
@@ -85,17 +86,22 @@ fingerprint () {
     echo | openssl s_client -connect $1:443 |& openssl x509 -fingerprint -sha1 -noout
 }
 
+# list remote merged branches, with date of last commit
+lmb () {
+    git branch -r --merged | grep -v HEAD | xargs -L1 git --no-pager log --pretty=tformat:'%Cgreen%d%Creset - %h by %an (%Cblue%ar%Creset)' -1
+}
+
 # delete locally merged branches
 dlmb () {
     git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d
 }
 
-# delete remote merged branches (into master) (gxargs because of mac)
+# delete remote merged branches (into master)
 drmb () {
     # delete branches that are local and on origin
     git branch -r --merged origin/master \
     | awk -F/ '/^\s*origin/ {if (!match($0, /origin\/master/)) {sub("^\\s*origin/", ""); print}}' \
-    | gxargs -rpn1 git push origin --delete
+    | xargs -rpn1 git push origin --delete
 
     # delete branches, that are only on origin and not locally:
     for branch in $(git for-each-ref --format='%(refname:lstrip=3)' refs/remotes/origin | grep -v HEAD | grep -v master); do
